@@ -1,8 +1,10 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 class SimulationScreen extends JPanel implements Runnable{
     private Controller controller;
@@ -28,6 +30,8 @@ class SimulationScreen extends JPanel implements Runnable{
     }
     private void initComponents(){
         algoBox = new JComboBox<String>();
+        // algoBox.setBackground(Color.decode("#17256f"));
+        // algoBox.setForeground(Color.WHITE);
         algoBox.addItem("FCFS");
         algoBox.addItem("SSTF");
         algoBox.addItem("LOOK");
@@ -37,14 +41,22 @@ class SimulationScreen extends JPanel implements Runnable{
         algoBox.setPreferredSize(new java.awt.Dimension(150,50));
 
         head = new JSpinner(new SpinnerNumberModel(0, 0, 199, 1));
+        // head.getEditor().getComponent(0).setBackground(Color.white);
+
         head.setPreferredSize(new java.awt.Dimension(150,50));
 
         requests = new JTextArea("", 4, 20);
+        requests.setBackground(Color.decode("#17256f"));
+        requests.setForeground(Color.WHITE);
         requests.setLineWrap(true);
         requests.setEditable(false);
         
         left = new JRadioButton("Left");
+        left.setBackground(Color.decode("#17256f"));
+        left.setForeground(Color.WHITE);
         right = new JRadioButton("Right");
+        right.setBackground(Color.decode("#17256f"));
+        right.setForeground(Color.WHITE);
         ButtonGroup direction = new ButtonGroup();
         direction.add(left);
         direction.add(right);
@@ -53,6 +65,8 @@ class SimulationScreen extends JPanel implements Runnable{
         speedSpinner.setPreferredSize(new java.awt.Dimension(200,50));
         
         start = new JButton("Start");
+        start.setBackground(Color.decode("#17256f"));
+        start.setForeground(Color.WHITE);
         start.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,6 +85,8 @@ class SimulationScreen extends JPanel implements Runnable{
             }
         });
         reset = new JButton("Back to Input Select");
+        reset.setBackground(Color.decode("#17256f"));
+        reset.setForeground(Color.WHITE);
         reset.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,25 +106,35 @@ class SimulationScreen extends JPanel implements Runnable{
         Border emptyBorder = BorderFactory.createEmptyBorder();
 
         JPanel algoPanel = new JPanel();        
-        algoPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder, "Disk Scheduling Algorithm"));
+        algoPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder, "Disk Scheduling Algorithm", 
+        TitledBorder.LEADING, TitledBorder.TOP, new Font("sans", Font.PLAIN,12), Color.WHITE));
+        algoPanel.setBackground(Color.decode("#17256f"));
         algoPanel.add(algoBox);
 
         JPanel headPanel = new JPanel();
-        headPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder, "Initial Position"));
+        headPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder, "Initial Position",
+        TitledBorder.LEADING, TitledBorder.TOP, new Font("sans", Font.PLAIN,12), Color.WHITE));
+        headPanel.setBackground(Color.decode("#17256f"));
         headPanel.add(head);
 
         JPanel directionPanel = new JPanel();
         directionPanel.setLayout(new java.awt.GridLayout(0,2,0,0));
-        directionPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder,"Direction"));
+        directionPanel.setBackground(Color.decode("#17256f"));
+        directionPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder,"Direction",
+        TitledBorder.LEADING, TitledBorder.TOP, new Font("sans", Font.PLAIN,12), Color.WHITE));
         directionPanel.add(left);
         directionPanel.add(right);      
 
         JPanel requestsPanel = new JPanel();
-        requestsPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder, "Requests"));
+        requestsPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder, "Requests",
+        TitledBorder.LEADING, TitledBorder.TOP, new Font("sans", Font.PLAIN,12), Color.WHITE));
+        requestsPanel.setBackground(Color.decode("#17256f"));
         JScrollPane requestScroll = new JScrollPane(requests);
+        requestScroll.setBackground(Color.decode("#17256f"));
         requestsPanel.add(requestScroll);
         
         JPanel settingsPanel = new JPanel();
+        settingsPanel.setBackground(Color.decode("#17256f"));
         settingsPanel.setLayout(new java.awt.GridLayout(4,0,0, 20));
         settingsPanel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK),
@@ -120,15 +146,19 @@ class SimulationScreen extends JPanel implements Runnable{
 
 
         JPanel speedPanel = new JPanel();
-        speedPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder, "Speed (cylinders/second)"));
+        speedPanel.setBackground(Color.decode("#17256f"));
+        speedPanel.setBorder(BorderFactory.createTitledBorder(emptyBorder, "Speed (cylinders/second)", 
+        TitledBorder.LEADING, TitledBorder.TOP, new Font("sans", Font.PLAIN,12), Color.WHITE));
         speedPanel.add(speedSpinner);
 
-        JPanel buttonsPanel = new JPanel();        
+        JPanel buttonsPanel = new JPanel();      
+        buttonsPanel.setBackground(Color.decode("#17256f"));  
         buttonsPanel.setLayout(new java.awt.GridLayout(1,3,0,0));
         buttonsPanel.add(start);
         buttonsPanel.add(reset);
 
         JPanel controlsPanel = new JPanel();
+        controlsPanel.setBackground(Color.decode("#17256f"));  
         controlsPanel.setLayout(new java.awt.BorderLayout());
         controlsPanel.add(speedPanel, java.awt.BorderLayout.WEST);
         controlsPanel.add(buttonsPanel, java.awt.BorderLayout.CENTER);

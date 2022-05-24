@@ -40,9 +40,9 @@ class ExportScreen extends JPanel{
     private boolean direction;
     private String algo;
     private int[] path;
-
-    
+    private BufferedImage img;
     private Input input;
+
     ExportScreen(Controller controller){
         this.controller = controller;
         initComponents();
@@ -58,6 +58,8 @@ class ExportScreen extends JPanel{
     }
     void initComponents(){
         asImage = new JButton("Export as PNG");
+        asImage.setBackground(Color.decode("#17256f"));
+        asImage.setForeground(Color.WHITE);
         asImage.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,6 +68,8 @@ class ExportScreen extends JPanel{
         });
 
         asPDF = new JButton("Export as PDF");
+        asPDF.setBackground(Color.decode("#17256f"));
+        asPDF.setForeground(Color.WHITE);
         asPDF.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,6 +78,8 @@ class ExportScreen extends JPanel{
         });
 
         backToMainMenu = new JButton("Back to Main Menu");
+        backToMainMenu.setBackground(Color.decode("#17256f"));
+        backToMainMenu.setForeground(Color.WHITE);
         backToMainMenu.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,6 +88,8 @@ class ExportScreen extends JPanel{
         });
 
         backToSimulator = new JButton("Back to Simulator");
+        backToSimulator.setBackground(Color.decode("#17256f"));
+        backToSimulator.setForeground(Color.WHITE);
         backToSimulator.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,15 +99,32 @@ class ExportScreen extends JPanel{
     }
     void initPanels(){
         setLayout(new java.awt.BorderLayout());
-        JPanel centeringPanel = new JPanel();       
+        JPanel centeringPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(img, 0, 0, null);
+            }
+        };
         centeringPanel.setBorder(BorderFactory.createEmptyBorder(controller.getHeight()/3,0,0,0));
         centeringPanel.add(asImage);
         centeringPanel.add(asPDF);
+        try {
+            img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/exportscreen.png"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        centeringPanel.setBackground(Color.decode("#17256f"));
+        // centeringPanel.setSize(800, 500);
+        centeringPanel.repaint();
 
         JPanel southPanel = new JPanel();
         southPanel.setLayout(new java.awt.BorderLayout());
+        southPanel.setBackground(Color.decode("#17256f"));
         JPanel gridPanel = new JPanel();
         gridPanel.setLayout(new java.awt.GridLayout(0,2,10,0));
+        gridPanel.setBackground(Color.decode("#17256f"));
         gridPanel.add(backToMainMenu);
         gridPanel.add(backToSimulator);
         southPanel.add(gridPanel, java.awt.BorderLayout.WEST);
@@ -120,7 +145,7 @@ class ExportScreen extends JPanel{
     }    
     void saveAsImage(){
         JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")+"/src/outputs");
-        FileNameExtensionFilter pngFilter=  new FileNameExtensionFilter("PNG files", "png");
+        FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("PNG files", "png");
         fileChooser.setFileFilter(pngFilter);
         if(fileChooser.showSaveDialog(controller.getFrame()) == JFileChooser.APPROVE_OPTION){
             File outputFile = fileChooser.getSelectedFile();  
