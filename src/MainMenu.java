@@ -1,7 +1,7 @@
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
 import java.awt.event.ActionListener;
@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import java.awt.Image;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,6 +23,7 @@ class MainMenu extends JPanel{
     private JButton start;
     private JButton exit;
     private JLabel label1;
+    private BufferedImage img;
 
     MainMenu(Controller controller){
         this.controller = controller;
@@ -31,24 +32,12 @@ class MainMenu extends JPanel{
     }
 
     private void initComponents(){
-
         
-        // label1 = new JLabel();
-        // label1.setPreferredSize(new Dimension(250, 100));
-
-        // BufferedImage img = null;
-        // try {
-        //     img = ImageIO.read(new File("src/images/test.png"));
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
-        
-        // Image dimg = img.getScaledInstance(label1.getWidth(), label1.getHeight(), Image.SCALE_SMOOTH);
-        // ImageIcon icon = new ImageIcon (dimg);
-        // label1.setIcon(icon);
+        label1 = new JLabel("Disk Scheduling Visualizer", SwingConstants.CENTER);
+        label1.setPreferredSize(new Dimension(200, 45));
 
         start = new JButton("Start");
-        start.setBackground(Color.GRAY);
+        start.setBackground(Color.decode("#17256f"));
         start.setForeground(Color.WHITE);
         start.addActionListener(new ActionListener(){
             @Override
@@ -58,7 +47,7 @@ class MainMenu extends JPanel{
         });
 
         exit = new JButton("Exit");
-        exit.setBackground(Color.GRAY);
+        exit.setBackground(Color.decode("#17256f"));
         exit.setForeground(Color.WHITE);
         exit.addActionListener(new ActionListener(){
             @Override
@@ -67,19 +56,37 @@ class MainMenu extends JPanel{
             }
         });
     }
+
     private void initPanels(){        
         setLayout(new BorderLayout());
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2,0,0,BUTTON_VGAP));
+        buttonPanel.setLayout(new GridLayout(2,1,0,BUTTON_VGAP));
+        buttonPanel.setBackground(Color.decode("#17256f"));
+        
         buttonPanel.add(start);
         buttonPanel.add(exit);
         
-        JPanel centeringPanel = new JPanel();
-        centeringPanel.setBorder(BorderFactory.createEmptyBorder(controller.getHeight()/2,0,0,0));
+        JPanel centeringPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(img, 0, 0, null);
+            }
+        };
+        centeringPanel.setBorder(BorderFactory.createEmptyBorder((controller.getHeight()/2),0,0,0));  
+        centeringPanel.setBackground(Color.BLUE);
+        try {
+            img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/splash.png"));
 
-        centeringPanel.add(buttonPanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // centeringPanel.setSize(800, 500);
+        centeringPanel.repaint();
+
         // centeringPanel.add(label1);
+        centeringPanel.add(buttonPanel);
         add(centeringPanel, BorderLayout.CENTER);
     }
 }
