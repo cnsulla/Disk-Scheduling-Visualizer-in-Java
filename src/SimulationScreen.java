@@ -61,7 +61,7 @@ class SimulationScreen extends JPanel implements Runnable{
         direction.add(left);
         direction.add(right);
 
-        speedSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 199, 1));
+        speedSpinner = new JSpinner(new SpinnerNumberModel(50, 1, 199, 1));
         speedSpinner.setPreferredSize(new java.awt.Dimension(200,50));
         
         start = new JButton("Start");

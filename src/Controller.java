@@ -36,6 +36,7 @@ class Controller {
         frame.add(cardPanel);
         frame.pack();
         frame.setLocationRelativeTo(null);
+        frame.setTitle("Disk Scheduling Visualizer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }

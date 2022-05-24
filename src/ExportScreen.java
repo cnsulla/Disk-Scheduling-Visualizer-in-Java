@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -103,7 +104,7 @@ class ExportScreen extends JPanel{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(img, 0, 0, null);
+                g.drawImage(img.getScaledInstance(this.getWidth(), this.getHeight(), java.awt.Image.SCALE_DEFAULT), 0, 0, null);
             }
         };
         centeringPanel.setBorder(BorderFactory.createEmptyBorder(controller.getHeight()/3,0,0,0));
@@ -151,8 +152,9 @@ class ExportScreen extends JPanel{
             File outputFile = fileChooser.getSelectedFile();  
             try {
                 ImageIO.write(outputImage, "png", outputFile);
+                JOptionPane.showMessageDialog(controller.getFrame(), "Saved as image successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(controller.getFrame(), "An error occured", "Error", JOptionPane.ERROR_MESSAGE);
             } 
         }
     }
@@ -172,9 +174,11 @@ class ExportScreen extends JPanel{
                 Image iTextImage = new Image(ImageDataFactory.create(outputImage, java.awt.Color.WHITE));
                 document.add(iTextImage);
                 document.close();
+
+                JOptionPane.showMessageDialog(controller.getFrame(), "Saved as PDF successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 
             } catch (IOException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(controller.getFrame(), "An error occured", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         
@@ -200,7 +204,7 @@ class ExportScreen extends JPanel{
         drawDetails(g2d);
         return bufferedImage;
     }
-    void drawBar(Graphics2D g2d){
+    private void drawBar(Graphics2D g2d){
         g2d.setPaint(Color.BLACK);
         g2d.drawLine(20,20,WIDTH-20, 20);
 
@@ -223,7 +227,7 @@ class ExportScreen extends JPanel{
             }
         }
     }
-    void drawPath(int[] path, Graphics2D g2d){
+    private void drawPath(int[] path, Graphics2D g2d){
         if(path == null || path.length == 0){
             return;
         }
@@ -237,7 +241,7 @@ class ExportScreen extends JPanel{
             g2d.drawLine(x1, y1, x2, y2);
         }
     }
-    void drawSchedule(int[] path, int[] schedule, Graphics2D g2d){
+    private void drawSchedule(int[] path, int[] schedule, Graphics2D g2d){
         int scheduleIndex = 0;
         for(int i = 0; i < path.length; i++){
             if(path[i] != schedule[scheduleIndex]){
@@ -254,7 +258,7 @@ class ExportScreen extends JPanel{
         }
         //g2d.setStroke(new java.awt.BasicStroke(1));
     }
-    void drawDetails(Graphics2D g2d){
+    private void drawDetails(Graphics2D g2d){
         g2d.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         String requestString = input.getRequestsAsString(input.getRequests());
         g2d.drawString("Requests: "+requestString,20,HEIGHT+10);

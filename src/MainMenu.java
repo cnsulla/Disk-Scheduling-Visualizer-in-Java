@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -71,7 +72,7 @@ class MainMenu extends JPanel{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(img, 0, 0, null);
+                g.drawImage(img.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT), 0, 0, null);
             }
         };
         centeringPanel.setBorder(BorderFactory.createEmptyBorder((controller.getHeight()/2),0,0,0));  
