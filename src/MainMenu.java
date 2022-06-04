@@ -78,7 +78,8 @@ class MainMenu extends JPanel{
         centeringPanel.setBorder(BorderFactory.createEmptyBorder((controller.getHeight()/2),0,0,0));  
         centeringPanel.setBackground(Color.BLUE);
         try {
-            img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/splash.png"));
+            img = ImageIO.read(getClass().getResource("images/splash.png"));
+            //img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/splash.png"));
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -111,7 +111,8 @@ class ExportScreen extends JPanel{
         centeringPanel.add(asImage);
         centeringPanel.add(asPDF);
         try {
-            img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/exportscreen.png"));
+            //img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/exportscreen.png"));
+            img = ImageIO.read(getClass().getResource("images/exportscreen.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,7 +146,7 @@ class ExportScreen extends JPanel{
             input.getSchedule(head, direction));
     }    
     void saveAsImage(){
-        JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")+"/src/outputs");
+        JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
         FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("PNG files", "png");
         fileChooser.setFileFilter(pngFilter);
         if(fileChooser.showSaveDialog(controller.getFrame()) == JFileChooser.APPROVE_OPTION){
@@ -159,7 +160,7 @@ class ExportScreen extends JPanel{
         }
     }
     void saveAsPDF(){
-        JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")+"/src/outputs");
+        JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
         FileNameExtensionFilter pdfFilter=  new FileNameExtensionFilter("PDF files", "pdf");
         fileChooser.setFileFilter(pdfFilter);
         if(fileChooser.showSaveDialog(controller.getFrame()) == JFileChooser.APPROVE_OPTION){

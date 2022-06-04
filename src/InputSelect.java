@@ -50,7 +50,7 @@ class InputSelect extends JPanel{
             @Override
             public void actionPerformed(ActionEvent evt){
                 try{
-                    JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir")+"/src/inputs");
+                    JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
                     FileNameExtensionFilter txtFilter=  new FileNameExtensionFilter("Text files", "txt");
                     fileChooser.setFileFilter(txtFilter);
 
@@ -107,7 +107,8 @@ class InputSelect extends JPanel{
         centeringPanel.setBorder(BorderFactory.createEmptyBorder(controller.getHeight()/2,0,0,0));
         centeringPanel.add(buttonPanel);
         try {
-            img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/inputscreen.png"));
+            //img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/images/inputscreen.png"));
+            img = ImageIO.read(getClass().getResource("images/inputscreen.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
