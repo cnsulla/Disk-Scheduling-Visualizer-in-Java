@@ -29,8 +29,6 @@ class SimulatorPanel extends JPanel{
         this.schedule = schedule;
         index = 0;
 
-        //Input.printArray(path, true);
-        //Input.printArray(schedule, true);
         if(path != null){
             needleX = path[index];
             needleY = 0;
@@ -104,7 +102,9 @@ class SimulatorPanel extends JPanel{
         }
 
         if(index < path.length-1){
-            g2d.drawLine(getXPos(path[index]), getYPx()*index+60,getXPos((int) needleX), getYPosMoving());
+            //g2d.drawLine(getXPos(path[index]), getYPx()*index+60,getXPos((int)Math.ceil(needleX)), getYPosMoving());
+            g2d.fillOval(getXPos((int)Math.ceil(needleX)), getYPosMoving(), 5,5);
+            
         }
     }
     boolean isFinished(){
@@ -119,6 +119,6 @@ class SimulatorPanel extends JPanel{
         return (getHeight()-80)/path.length;
     }
     int getYPosMoving(){
-        return (int)Math.ceil(needleY*getYPx())+60;
+        return (int)((needleY*getYPx())+60);
     }
 } 
